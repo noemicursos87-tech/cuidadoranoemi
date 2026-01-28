@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
     // 1. VARIABLES GLOBALES
     let fechasParaMensaje = "No seleccionadas";
-    const miTelefono = "34620361948";  // Formato: 34 + 620361948 (prefijo España + móvil)
+    const miTelefono = "34620361948";  // Formato estándar wa.me: prefijo + número (sin + ni espacios)
+    let procesandoWhatsApp = false; // Protección contra doble clic
 
     // 2. INICIALIZAR CALENDARIO
     const calendarEl = document.getElementById('calendar');
@@ -44,6 +45,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 5. FUNCIÓN WHATSAPP CORREGIDA (ÚNICA FUNCIONAL)
     document.getElementById('btn-whatsapp-final').onclick = function() {
+        // Protección contra doble clic
+        if (procesandoWhatsApp) {
+            console.log("WhatsApp ya procesando, ignorando clic duplicado");
+            return;
+        }
+        
         const valorC = selCuidador.value;
         const valorM = selMuni.value;
         const notas = document.getElementById('user-notes').value;
@@ -53,6 +60,9 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
+        // Activar protección
+        procesandoWhatsApp = true;
+        
         // Obtener servicios marcados - DEBUG VERIFICATION
         const bloqueActivo = (valorC === 'ninos') ? bNinos : bAnimales;
         const checksInputs = bloqueActivo.querySelectorAll('input[type="checkbox"]:checked');
@@ -88,5 +98,10 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Abrir WhatsApp en nueva pestaña
         window.open(url, '_blank');
+        
+        // Resetear protección después de 2 segundos
+        setTimeout(() => {
+            procesandoWhatsApp = false;
+        }, 2000);
     };
 });

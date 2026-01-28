@@ -219,71 +219,7 @@
         <button type="button" id="btn-whatsapp-final" style="background:#ff91b4; color:white; width:100%; padding:15px; border:none; border-radius:30px; font-weight:bold; font-size:16px; margin-top:15px; cursor:pointer;">Solicitar por WhatsApp</button>
     </form>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const selCuidador = document.getElementById('tipo-cuidador');
-            const bNinos = document.getElementById('bloque-ninos');
-            const bAnimales = document.getElementById('bloque-animales');
-            const selMuni = document.getElementById('municipio-inca');
-            const btnWA = document.getElementById('btn-whatsapp-final');
-
-            // 1. Lógica Desplegables 1 y 2
-            selCuidador.addEventListener('change', function() {
-                bNinos.style.display = (this.value === 'ninos') ? 'block' : 'none';
-                bAnimales.style.display = (this.value === 'animales') ? 'block' : 'none';
-            });
-
-            // 2. Cargar Municipios 3
-            const pueblos = [
-                {n:"Alaró",k:15},{n:"Alcúdia",k:25},{n:"Binissalem",k:6},{n:"Búger",k:10},
-                {n:"Campanet",k:10},{n:"Consell",k:12},{n:"Costitx",k:11},{n:"Inca",k:2},
-                {n:"Lloseta",k:4},{n:"Llubí",k:11},{n:"Mancor",k:5},{n:"Marratxí",k:20},
-                {n:"Palma",k:30},{n:"Sa Pobla",k:10},{n:"Santa Maria",k:13},{n:"Selva",k:5},{n:"Sineu",k:12}
-            ];
-            
-            let h = '<option value="">3. Elegir municipio...</option>';
-            pueblos.sort((a,b)=>a.n.localeCompare(b.n)).forEach(p => {
-                h += `<option value="${p.n} (${p.k}km)">${p.n} (a ${p.k} km de Inca)</option>`;
-            });
-            selMuni.innerHTML = h;
-
-            // 3. Calendario (Conexión segura)
-            var fechasSeleccionadas = "No indicadas";
-            try {
-                var calendarEl = document.getElementById('calendar');
-                if (calendarEl) {
-                    var calendar = new FullCalendar.Calendar(calendarEl, {
-                        initialView: 'dayGridMonth',
-                        locale: 'es',
-                        selectable: true,
-                        select: function(info) {
-                            fechasSeleccionadas = info.startStr + " al " + info.endStr;
-                            document.getElementById('selected-days-list').innerText = "Seleccionado: " + fechasSeleccionadas;
-                        }
-                    });
-                    calendar.render();
-                }
-            } catch(e) { console.log("Calendario pendiente de carga externa"); }
-
-            // 4. Botón WhatsApp - Corregido para mensaje correcto
-            btnWA.onclick = function() {
-                const c = selCuidador.value;
-                const m = selMuni.value;
-                if(!c || !m) return alert("Por favor, selecciona cuidador y municipio");
-
-                const activo = (c === 'ninos') ? bNinos : bAnimales;
-                const serviciosMarcados = Array.from(activo.querySelectorAll('input:checked')).map(i=>i.value);
-                const s = serviciosMarcados.length > 0 ? serviciosMarcados.join(", ") : "General";
-
-                // Mensaje corregido con formato compatible y encodeURIComponent
-                const msg = encodeURIComponent(`*RESERVA NOEMI*\n*Cuidador:* ${c === 'ninos' ? 'Niños 👶' : 'Animales 🐾'}\n*Servicios:* ${s}\n*Municipio:* ${m}\n*Fechas:* ${fechasSeleccionadas}\n*Notas:* ${document.getElementById('user-notes').value}`);
-                
-                // URL corregida - formato estándar internacional con espacios
-                window.open(`https://wa.me/34+620361948?text=${msg}`, '_blank');
-            };
-        });
-    
-    </script>
+<!-- Script inline eliminado - ahora usa solo script.js para evitar duplicación -->
 </section>
 
     <section class="block block-prices">
@@ -311,7 +247,7 @@
     <textarea id="user-suggestion" placeholder="Sugerencias para mejorar..." style="width:100%; padding:10px; border-radius:10px; border:2px solid #ccc;"></textarea>
     
     <button type="button" id="btn-publicar-resena" style="background:#3498db; color:white; width:100%; padding:12px; border:none; border-radius:30px; font-weight:bold; margin-top:10px; cursor:pointer;">
-        Publicar Comentario y Enviar WhatsApp
+        Publicar Comentario
     </button>
 
     <div id="lista-resenas-publicas" style="margin-top: 30px; border-top: 2px solid #eee; padding-top: 20px;">
