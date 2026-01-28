@@ -1,0 +1,31 @@
+{
+  "name": "cuidadoranoemi",
+  "version": "1.0.0",
+  "description": "Noemi - Cuidadora Profesional en Inca, Mallorca. Servicios de cuidado para niños y animales.",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "build": "echo 'Build completed - Static files ready for deployment'",
+    "deploy": "echo 'Deploy to Vercel via GitHub integration'",
+    "optimize": "echo 'Optimize images and minify assets'"
+  },
+  "keywords": [
+    "cuidadora",
+    "niñera", 
+    "pet-sitter",
+    "mallorca",
+    "inca",
+    "cuidado-niños",
+    "cuidado-animales",
+    "servicios-cuidado"
+  ],
+  "author": "Noemi Cuidadora Profesional",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/noemicursos87-tech/cuidadoranoemi.git"
+  },
+  "homepage": "https://noemicursos87-tech.github.io/cuidadoranoemi/",
+  "devDependencies": {},
+  "dependencies": {}
+}

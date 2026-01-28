@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     selMuni.innerHTML = muniHTML;
 
-    // 5. FUNCIÓN DE ENVÍO (ÚNICA Y DEFINITIVA)
+    // 5. FUNCIÓN WHATSAPP CORREGIDA (ÚNICA FUNCIONAL)
     document.getElementById('btn-whatsapp-final').onclick = function() {
         const valorC = selCuidador.value;
         const valorM = selMuni.value;
@@ -58,18 +58,19 @@ document.addEventListener('DOMContentLoaded', function() {
         const checks = Array.from(bloqueActivo.querySelectorAll('input:checked')).map(i => i.value);
         const servicios = checks.length > 0 ? checks.join(", ") : "General";
 
-        // Crear el mensaje (Usando encodeURIComponent para que no falle)
+        // Mensaje optimizado para WhatsApp
         let texto = "📌 *RESERVA NOEMI*\n";
-        texto += "*Cuidador:* " + (valorC === 'ninos' ? "Niños 👶" : "Animales 🐾") + "\n";
+        texto += "*Servicio:* " + (valorC === 'ninos' ? "Niños 👶" : "Animales 🐾") + "\n";
         texto += "*Servicios:* " + servicios + "\n";
         texto += "*Municipio:* " + valorM + "\n";
         texto += "*Fechas:* " + fechasParaMensaje + "\n";
-        texto += "*Notas:* " + notas;
+        texto += "*Notas:* " + notas + "\n";
+        texto += "*Teléfono:* " + miTelefono;
 
-        // URL final
-        const url = "https://wa.me/" + miTelefono + "?text=" + encodeURIComponent(texto);
+        // URL corregida - formato internacional con espacios + encode completo
+        const url = "https://wa.me/34+620361948?text=" + encodeURIComponent(texto);
         
-        // Abrir WhatsApp
+        // Abrir WhatsApp en nueva pestaña
         window.open(url, '_blank');
     };
 });

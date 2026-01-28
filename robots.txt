@@ -1,0 +1,23 @@
+User-agent: *
+Allow: /
+Crawl-delay: 1
+
+# Allow search engines to crawl all content
+Allow: /*.css
+Allow: /*.js
+Allow: /*.jpg
+Allow: /*.jpeg
+Allow: /*.png
+Allow: /*.gif
+Allow: /*.webp
+Allow: /*.avif
+
+# Sitemap location
+Sitemap: https://noemicursos87-tech.github.io/cuidadoranoemi/sitemap.xml
+
+# Block crawlers that waste bandwidth
+User-agent: BLEXBot
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
