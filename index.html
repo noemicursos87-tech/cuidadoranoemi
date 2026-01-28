@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noemi - Cuidadora Profesional 2026</title>
+    <link rel="stylesheet" href="style.css">
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
+</head>
+<body>
+    <div id="background-animals"></div>
+
+    <header class="block-header">
+        <div class="header-content">
+            <img src="portada_cuidadora.avif" alt="Foto Portada" class="header-img">
+            <div class="header-overlay">
+                <h1>Noemi: Cuidadora en Inca, Mallorca 💖</h1>
+                <p>Responsable, dinámica divertida, titulada y con experiencia</p>
+            </div>
+        </div>
+    </header>
+
+    <section class="block block-intro">
+        <h2>Mis Servicios</h2>
+        <div class="services-grid">
+            <p>👶 <strong>Niñ@s:</strong> Cuiadados y diversión para los peques mientras los padres están trabajando o de viaje o una simple salida para distraerse de la frustación o cansancio de la rutina.</p>
+            <p>🐾 <strong>Animales:</strong> Cuidados y paseos con amor, ofrecer compañía y distraciión para que la espera de sus amados amos no sea tan larga y pesada o alimentarlos en su ausencia. Por ejemplo perros, gatos, restiles, aves, incluso animales de granja como caballos u otros.</p>
+            <p>🚗 <strong>Movilidad:</strong> Vehículo propio desde Inca.</p>
+        </div>
+    </section>
+
+    <section class="block block-calendar">
+        <h2>Agenda 2026</h2>
+        <div id='calendar'></div>
+        <div class="legend">
+            <span class="dot libre"></span> Libre | 
+            <span class="dot parcial"></span> Parcial | 
+            <span class="dot ocupado"></span> Ocupado
+        </div>
+    </section>
+
+            
+
+   <section class="block block-reservations">
+    <h3>Solicitar Reserva</h3>
+    <p>Selecciona los detalles para tu estancia o trabajo:</p>
+    <div id="selected-days-list" class="date-badge" style="background:#fff; padding:10px; border-radius:10px; margin-bottom:10px; color:#3498db; font-weight:bold; border:1px solid #eee;">Ningún día seleccionado</div>
+    
+    <form id="reserva-form">
+        <select id="tipo-cuidador" class="reserva-select" style="width:100%; padding:12px; border:2px solid #f39c12; border-radius:10px; margin-bottom:10px;">
+            <option value="">1. ¿A quién cuidar?</option>
+            <option value="ninos">👶 Cuidador de niños</option>
+            <option value="animales">🐾 Cuidador de animales</option>
+        </select>
+
+        <div id="bloque-ninos" style="display:none; background: #fff; padding: 15px; border-radius: 10px; margin-bottom: 10px; border-left: 5px solid #ff91b4; text-align: left;">
+            <strong style="display:block; margin-bottom:10px;">Servicios para Niños:</strong>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                <label><input type="checkbox" value="Alimentación"> Alimentación</label>
+                <label><input type="checkbox" value="Vigilancia"> Vigilancia</label>
+                <label><input type="checkbox" value="Dinámicas"> Dinámicas</label>
+                <label><input type="checkbox" value="Deberes"> Deberes</label>
+            </div>
+        </div>
+
+        <div id="bloque-animales" style="display:none; background: #fff; padding: 15px; border-radius: 10px; margin-bottom: 10px; border-left: 5px solid #ff91b4; text-align: left;">
+            <strong style="display:block; margin-bottom:10px;">Servicios para Animales:</strong>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                <label><input type="checkbox" value="Alimentación"> Alimentación</label>
+                <label><input type="checkbox" value="Paseos"> Paseos</label>
+                <label><input type="checkbox" value="Cariño"> Cariño</label>
+                <label><input type="checkbox" value="Juegos"> Juegos</label>
+                <label><input type="checkbox" value="Vigilancia"> Vigilancia</label>
+            </div>
+        </div>
+
+        <select id="municipio-inca" class="reserva-select" style="width:100%; padding:12px; border:2px solid #f39c12; border-radius:10px; margin-bottom:10px;">
+            <option value="">3. Cargando municipios...</option>
+        </select>
+
+        <textarea id="user-notes" placeholder="Horario, servicio y ubicación exacta..." style="width:100%; padding:12px; border:2px solid #f39c12; border-radius:10px; min-height:80px;"></textarea>
+        
+        <button type="button" id="btn-whatsapp-final" style="background:#ff91b4; color:white; width:100%; padding:15px; border:none; border-radius:30px; font-weight:bold; font-size:16px; margin-top:15px; cursor:pointer;">Solicitar por WhatsApp</button>
+    </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const selCuidador = document.getElementById('tipo-cuidador');
+            const bNinos = document.getElementById('bloque-ninos');
+            const bAnimales = document.getElementById('bloque-animales');
+            const selMuni = document.getElementById('municipio-inca');
+            const btnWA = document.getElementById('btn-whatsapp-final');
+
+            // 1. Lógica Desplegables 1 y 2
+            selCuidador.addEventListener('change', function() {
+                bNinos.style.display = (this.value === 'ninos') ? 'block' : 'none';
+                bAnimales.style.display = (this.value === 'animales') ? 'block' : 'none';
+            });
+
+            // 2. Cargar Municipios 3
+            const pueblos = [
+                {n:"Alaró",k:15},{n:"Alcúdia",k:25},{n:"Binissalem",k:6},{n:"Búger",k:10},
+                {n:"Campanet",k:10},{n:"Consell",k:12},{n:"Costitx",k:11},{n:"Inca",k:2},
+                {n:"Lloseta",k:4},{n:"Llubí",k:11},{n:"Mancor",k:5},{n:"Marratxí",k:20},
+                {n:"Palma",k:30},{n:"Sa Pobla",k:10},{n:"Santa Maria",k:13},{n:"Selva",k:5},{n:"Sineu",k:12}
+            ];
+            
+            let h = '<option value="">3. Elegir municipio...</option>';
+            pueblos.sort((a,b)=>a.n.localeCompare(b.n)).forEach(p => {
+                h += `<option value="${p.n} (${p.k}km)">${p.n} (a ${p.k} km de Inca)</option>`;
+            });
+            selMuni.innerHTML = h;
+
+            // 3. Calendario (Conexión segura)
+            var fechasSeleccionadas = "No indicadas";
+            try {
+                var calendarEl = document.getElementById('calendar');
+                if (calendarEl) {
+                    var calendar = new FullCalendar.Calendar(calendarEl, {
+                        initialView: 'dayGridMonth',
+                        locale: 'es',
+                        selectable: true,
+                        select: function(info) {
+                            fechasSeleccionadas = info.startStr + " al " + info.endStr;
+                            document.getElementById('selected-days-list').innerText = "Seleccionado: " + fechasSeleccionadas;
+                        }
+                    });
+                    calendar.render();
+                }
+            } catch(e) { console.log("Calendario pendiente de carga externa"); }
+
+            // 4. Botón Enviar
+            btnWA.onclick = function() {
+                const c = selCuidador.value;
+                const m = selMuni.value;
+                if(!c || !m) return alert("Selecciona cuidador y municipio");
+
+                const activo = (c === 'ninos') ? bNinos : bAnimales;
+                const s = Array.from(activo.querySelectorAll('input:checked')).map(i=>i.value).join(", ");
+
+                const msg = `*RESERVA NOEMI*%0A*Cuidador:* ${c}%0A*Servicios:* ${s||'General'}%0A*Municipio:* ${m}%0A*Fechas:* ${fechasSeleccionadas}%0A*Notas:* ${document.getElementById('user-notes').value}`;
+                window.open(`https://wa.me/34620361948?text=${msg}`);
+            };
+        });
+    
+    </script>
+</section>
+
+    <section class="block block-prices">
+        <h3>Tarifas y Pagos</h3>
+        <p class="price-tag">15€ / Hora</p>
+        <ul>
+            <li>Negociable a partir de 5h diarias o por volumen de trabajo.</li>
+            <li>Suplemento 3€/kmpor km fuera de Inca.</li>
+            <li><strong>Pago:</strong> Efectivo al finalizar la jornada.</li>
+        </ul>
+    </section>
+
+ <section class="block block-reviews">
+    <h3>Reseñas y Sugerencias</h3>
+    <div class="rating-box" style="text-align:center; margin-bottom:20px;">
+        <p>¿Cómo fue tu experiencia? Haz clic en las estrellas:</p>
+        <div id="star-rating" style="font-size: 35px; cursor: pointer; color: #ccc; margin-bottom: 10px;">
+            <span data-value="1">★</span><span data-value="2">★</span><span data-value="3">★</span><span data-value="4">★</span><span data-value="5">★</span>
+        </div>
+        <input type="hidden" id="rating-value" value="0">
+    </div>
+
+    <input type="text" id="user-name" placeholder="Tu nombre" style="width:100%; padding:10px; border-radius:10px; border:2px solid #f39c12; margin-bottom:10px;">
+    <textarea id="user-opinion" placeholder="Tu opinión sobre mi servicio..." style="width:100%; padding:10px; border-radius:10px; border:2px solid #ccc; margin-bottom:10px;"></textarea>
+    <textarea id="user-suggestion" placeholder="Sugerencias para mejorar..." style="width:100%; padding:10px; border-radius:10px; border:2px solid #ccc;"></textarea>
+    
+    <button type="button" id="btn-publicar-resena" style="background:#3498db; color:white; width:100%; padding:12px; border:none; border-radius:30px; font-weight:bold; margin-top:10px; cursor:pointer;">
+        Publicar Comentario y Enviar WhatsApp
+    </button>
+
+    <div id="lista-resenas-publicas" style="margin-top: 30px; border-top: 2px solid #eee; padding-top: 20px;">
+        <h4 style="color: #ff91b4;">Opiniones de Clientes:</h4>
+        <div id="contenedor-comentarios">
+            <p style="color: #999; font-style: italic;">Aún no hay reseñas. ¡Sé el primero!</p>
+        </div>
+    </div>
+</section>
+
+<script>
+
+    // --- LÓGICA DEL BOTÓN WHATSAPP (Ajustada) ---
+    const btnWA = document.getElementById('btn-whatsapp-final');
+    btnWA.onclick = function() {
+        const cuidador = document.getElementById('tipo-cuidador').value;
+        const muni = document.getElementById('municipio-inca').value;
+        const notaEstrellas = ratingInput.value;
+      
+        const opinion = document.getElementById('user-opinion').value;
+        const fechas = document.getElementById('selected-days-list').innerText;
+
+        if(!cuidador || !muni) {
+            alert("Por favor, selecciona cuidador y municipio.");
+            return;
+        }
+
+        let msg = `*RESERVA NOEMI*%0A`;
+        msg += `*Servicio:* ${cuidador}%0A`;
+        msg += `*Municipio:* ${muni}%0A`;
+        msg += `*Fechas:* ${fechas}%0A`;
+        msg += `*Valoración:* ${notaEstrellas} de 5 estrellas ⭐%0A`;
+        msg += `*Opinión:* ${encodeURIComponent(opinion)}`;
+
+        window.open(`https://wa.me/34620361948?text=${msg}`);
+    };
+});
+</script>
+
+
+    <script src="script.js"></script>
+</body>
+</html>
+
