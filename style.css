@@ -1,10 +1,12 @@
-/* General SEO Optimizado */
+/* General SEO Optimizado con fondo lila */
 body { 
     margin: 0; 
     font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif; 
     overflow-x: hidden;
     line-height: 1.6;
     color: #333;
+    background: linear-gradient(135deg, #f8f0ff 0%, #e8d5ff 50%, #f0e6ff 100%);
+    min-height: 100vh;
 }
 
 /* Performance CSS */
@@ -20,12 +22,12 @@ body {
     scroll-margin-top: 80px;
 }
 
-/* Colores de Bloques */
-.block-intro { background: linear-gradient(135deg, #fff9c4, #ffcc80); }
-.block-calendar { background-color: #f5f5dc; }
-.block-reservations { background-color: #e1f5fe; }
-.block-prices { background-color: #e8f5e9; }
-.block-reviews { background: linear-gradient(135deg, #fce4ec, #f5f5dc); }
+/* Colores de Bloques con fondo lila integrado */
+.block-intro { background: rgba(255, 249, 196, 0.7); backdrop-filter: blur(5px); }
+.block-calendar { background: rgba(245, 245, 220, 0.7); backdrop-filter: blur(5px); }
+.block-reservations { background: rgba(225, 245, 254, 0.7); backdrop-filter: blur(5px); }
+.block-prices { background: rgba(232, 245, 233, 0.7); backdrop-filter: blur(5px); }
+.block-reviews { background: rgba(252, 228, 236, 0.7); backdrop-filter: blur(5px); }
 
 /* Portada */
 .header-content { position: relative; width: 100%; height: 350px; }
@@ -100,29 +102,57 @@ textarea, input { width: 90%; max-width: 400px; margin: 10px auto; padding: 12px
         margin: 8px auto;
     }
     
-    /* Checkboxes optimizados - lista vertical compacta */
+    /* Checkboxes optimizados - dos columnas con iconos */
     .services-checkboxes {
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 4px !important;
-        max-width: 300px;
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 8px !important;
+        max-width: 500px;
         margin: 0 auto;
     }
     
-    /* Checkboxes alineados con texto - mínimo espacio */
-    input[type="checkbox"] {
-        margin-right: 2px !important;
-        transform: scale(0.85);
-        vertical-align: middle;
-    }
-    
-    label {
-        display: flex;
+    /* Labels con icono izquierda y checkbox derecha */
+    .services-checkboxes label {
+        display: flex !important;
         align-items: center;
-        gap: 2px;
+        justify-content: space-between;
         font-size: 0.9em;
         text-align: left;
-        padding: 2px 0;
+        padding: 8px 12px;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 8px;
+        border: 1px solid rgba(255, 145, 180, 0.2);
+        transition: all 0.2s ease;
+        cursor: pointer;
+    }
+    
+    /* Iconos a la izquierda */
+    .services-checkboxes .service-icon {
+        font-size: 1.2em;
+        margin-right: 8px;
+        flex-shrink: 0;
+    }
+    
+    /* Texto centrado */
+    .services-checkboxes .service-text {
+        flex-grow: 1;
+        text-align: center;
+    }
+    
+    /* Checkbox a la derecha con mínimo espacio */
+    .services-checkboxes input[type="checkbox"] {
+        margin: 0 !important;
+        margin-left: 4px !important;
+        transform: scale(0.9);
+        flex-shrink: 0;
+    }
+    
+    /* Hover effect */
+    .services-checkboxes label:hover {
+        background: rgba(255, 145, 180, 0.15);
+        border-color: rgba(255, 145, 180, 0.4);
+        transform: translateY(-1px);
+        box-shadow: 0 2px 8px rgba(255, 145, 180, 0.2);
     }
     
     /* Botones más compactos */
@@ -146,10 +176,15 @@ textarea, input { width: 90%; max-width: 400px; margin: 10px auto; padding: 12px
         font-size: 0.85em;
     }
     
-    /* Mantener lista vertical en todos los tamaños */
+    /* Mantener dos columnas con más espacio */
     .services-checkboxes {
-        max-width: 350px;
-        gap: 3px !important;
+        max-width: 600px;
+        gap: 12px !important;
+    }
+    
+    .services-checkboxes label {
+        padding: 10px 16px;
+        font-size: 1em;
     }
 }
 
@@ -250,10 +285,26 @@ textarea, input { width: 90%; max-width: 400px; margin: 10px auto; padding: 12px
 }
 
 .services-checkboxes label:hover {
-    background: rgba(255, 145, 180, 0.1);
-    padding: 4px 8px;
-    border-radius: 5px;
-    cursor: pointer;
+    background: rgba(255, 145, 180, 0.15);
+    border-color: rgba(255, 145, 180, 0.4);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(255, 145, 180, 0.2);
+}
+
+/* Checkbox checked state */
+.services-checkboxes input[type="checkbox"]:checked + .service-text {
+    font-weight: 600;
+    color: #d63384;
+}
+
+.services-checkboxes input[type="checkbox"]:checked + span::before {
+    content: '✓';
+    position: absolute;
+    right: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #28a745;
+    font-weight: bold;
 }
 
 /* Optimización de calendario para desktop */
