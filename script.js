@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     // 1. VARIABLES GLOBALES
     let fechasParaMensaje = "No seleccionadas";
-    const miTelefono = "34620361948";
+    const miTelefono = "34620361948";  // Formato: 34 + 620361948 (prefijo España + móvil)
 
     // 2. INICIALIZAR CALENDARIO
     const calendarEl = document.getElementById('calendar');
@@ -53,22 +53,38 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        // Obtener servicios marcados
+        // Obtener servicios marcados - DEBUG VERIFICATION
         const bloqueActivo = (valorC === 'ninos') ? bNinos : bAnimales;
-        const checks = Array.from(bloqueActivo.querySelectorAll('input:checked')).map(i => i.value);
+        const checksInputs = bloqueActivo.querySelectorAll('input[type="checkbox"]:checked');
+        console.log("Checkboxes encontrados:", checksInputs.length);
+        console.log("Bloque activo:", valorC);
+        
+        const checks = Array.from(checksInputs).map(i => {
+            console.log("Checkbox checked:", i.value);
+            return i.value;
+        });
         const servicios = checks.length > 0 ? checks.join(", ") : "General";
+        console.log("Servicios final:", servicios);
 
-        // Mensaje optimizado para WhatsApp
-        let texto = "📌 *RESERVA NOEMI*\n";
-        texto += "*Servicio:* " + (valorC === 'ninos' ? "Niños 👶" : "Animales 🐾") + "\n";
-        texto += "*Servicios:* " + servicios + "\n";
-        texto += "*Municipio:* " + valorM + "\n";
-        texto += "*Fechas:* " + fechasParaMensaje + "\n";
-        texto += "*Notas:* " + notas + "\n";
-        texto += "*Teléfono:* " + miTelefono;
+        // Mensaje simplificado para evitar problemas de formato
+        let texto = "📌 RESERVA NOEMI\n";
+        texto += "Servicio: " + (valorC === 'ninos' ? "Niños" : "Animales") + "\n";
+        texto += "Servicios: " + servicios + "\n";
+        texto += "Municipio: " + valorM + "\n";
+        texto += "Fechas: " + fechasParaMensaje + "\n";
+        texto += "Notas: " + notas;
+        
+        // Sin formato especial que pueda causar problemas
+        console.log("Mensaje completo:", texto);
 
-        // URL corregida - formato internacional con espacios + encode completo
-        const url = "https://wa.me/34+620361948?text=" + encodeURIComponent(texto);
+        // URL CORREGIDA - formato internacional estándar para España
+        // Número español: +34 620 361 948 → sin espacios ni signos para wa.me
+        const url = "https://wa.me/34620361948?text=" + encodeURIComponent(texto);
+        
+        // Debug: mostrar URL en consola para verificar
+        console.log("WhatsApp URL:", url);
+        console.log("Teléfono usado:", miTelefono);
+        console.log("Mensaje:", texto);
         
         // Abrir WhatsApp en nueva pestaña
         window.open(url, '_blank');

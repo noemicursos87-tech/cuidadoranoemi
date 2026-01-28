@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test WhatsApp Simple</title>
+</head>
+<body>
+    <h1>Test WhatsApp Botón</h1>
+    
+    <button onclick="testWhatsApp()">Test WhatsApp</button>
+    
+    <script>
+        function testWhatsApp() {
+            // Test con el número exacto
+            const telefono = "34620361948";
+            const mensaje = "TEST: Reserva Noemi";
+            
+            // URL según documentación oficial
+            const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
+            
+            console.log("URL generada:", url);
+            console.log("Teléfono:", telefono);
+            console.log("Mensaje:", mensaje);
+            
+            // Abrir en nueva ventana
+            window.open(url, '_blank');
+        }
+    </script>
+</body>
+</html>
