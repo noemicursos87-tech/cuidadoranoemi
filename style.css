@@ -53,6 +53,219 @@ button { background: #ff8fb1; color: white; border: none; padding: 15px 30px; bo
 textarea, input { width: 90%; max-width: 400px; margin: 10px auto; padding: 12px; border-radius: 10px; border: 1px solid #ccc; display: block; }
 .date-badge { background: white; padding: 10px; border-radius: 10px; display: inline-block; margin-bottom: 10px; font-weight: bold; color: #3498db; }
 
+/* Responsive Design - Mobile First */
+
+/* Estilos base para móviles (actuales - sin cambios) */
+
+/* TABLET (768px+) - Transición suave */
+@media (min-width: 768px) {
+    .block {
+        padding: 40px 30px;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+    
+    #calendar {
+        max-width: 80%;
+        margin: 0 auto;
+    }
+}
+
+/* DESKTOP (1024px+) - Versión optimizada */
+@media (min-width: 1024px) {
+    .block {
+        padding: 30px 40px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    /* Calendario 50% ancho - Versión compacta */
+    #calendar {
+        max-width: 50% !important;
+        margin: 0 auto 20px auto;
+        font-size: 0.9em;
+    }
+    
+    /* Contenedor de reservas más compacto */
+    .block-reservations {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+    
+    /* Formularios centrados y más compactos */
+    .reserva-select,
+    textarea,
+    #user-notes {
+        max-width: 70% !important;
+        margin: 8px auto;
+    }
+    
+    /* Checkboxes optimizados - 3 columnas compactas */
+    .services-checkboxes {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 6px !important;
+    }
+    
+    /* Checkboxes alineados con texto */
+    input[type="checkbox"] {
+        margin-right: 2px !important;
+        transform: scale(0.85);
+        vertical-align: middle;
+    }
+    
+    label {
+        display: inline-flex;
+        align-items: center;
+        gap: 2px;
+        font-size: 0.9em;
+        white-space: nowrap;
+    }
+    
+    /* Botones más compactos */
+    #btn-whatsapp-final,
+    #btn-publicar-resena {
+        max-width: 400px;
+        margin: 15px auto;
+        padding: 12px 25px;
+        font-size: 1rem;
+    }
+}
+
+/* LARGE DESKTOP (1440px+) - Extra optimización */
+@media (min-width: 1440px) {
+    .block {
+        max-width: 1400px;
+    }
+    
+    #calendar {
+        max-width: 45% !important;
+        font-size: 0.85em;
+    }
+    
+    .services-checkboxes {
+        grid-template-columns: repeat(4, 1fr) !important;
+    }
+}
+
+/* Calendario estilos específicos responsive */
+#calendar .fc-daygrid-day.fc-day-today {
+    background: rgba(255, 145, 180, 0.1) !important;
+}
+
+#calendar .fc-daygrid-day-number {
+    font-size: 0.9em;
+}
+
+@media (min-width: 1024px) {
+    #calendar .fc-daygrid-day-number {
+        font-size: 0.8em;
+    }
+}
+
+/* Mejoras touch para móviles */
+@media (hover: none) and (pointer: coarse) {
+    input[type="checkbox"] {
+        min-width: 24px;
+        min-height: 24px;
+        transform: none;
+    }
+    
+    label {
+        padding: 8px 0;
+        font-size: 1em;
+    }
+}
+
+/* Optimización de layout web - contenedores compactos */
+@media (min-width: 1024px) {
+    /* Header más compacto */
+    .header-content {
+        height: 280px;
+    }
+    
+    .header-overlay {
+        padding: 15px 30px;
+    }
+    
+    .header-overlay h1 {
+        font-size: 1.8em;
+        margin-bottom: 5px;
+    }
+    
+    /* Secciones más compactas */
+    .block {
+        min-height: 300px;
+    }
+    
+    /* Grid de servicios optimizado */
+    .services-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+    
+    .services-grid p {
+        margin: 0;
+        padding: 15px;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    /* Precios más compactos */
+    .block-prices {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    
+    .price-tag {
+        font-size: 2em;
+        margin: 20px 0;
+    }
+    
+    /* Reseñas optimizadas */
+    .block-reviews {
+        max-width: 700px;
+        margin: 0 auto;
+    }
+    
+    /* Botones de estrellas más compactos */
+    #star-rating span {
+        font-size: 28px;
+        margin: 0 2px;
+    }
+}
+
+/* Animaciones suaves para transiciones */
+.services-checkboxes label {
+    transition: all 0.2s ease;
+}
+
+.services-checkboxes label:hover {
+    background: rgba(255, 145, 180, 0.1);
+    padding: 4px 8px;
+    border-radius: 5px;
+}
+
+/* Optimización de calendario para desktop */
+@media (min-width: 1024px) {
+    #calendar .fc-toolbar-title {
+        font-size: 1.2em;
+    }
+    
+    #calendar .fc-button {
+        padding: 6px 12px;
+        font-size: 0.85em;
+    }
+    
+    #calendar .fc-daygrid-day-frame {
+        padding: 2px;
+    }
+}
+
 
 /* Estilos para las estrellas */
 #star-rating span {
