@@ -4,7 +4,7 @@
   
   <url>
     <loc>https://noemicursos87-tech.github.io/cuidadoranoemi/</loc>
-    <lastmod>2026-01-28</lastmod>
+    <lastmod>2026-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -12,6 +12,12 @@
       <image:title>Noemi - Cuidadora Profesional en Inca, Mallorca</image:title>
       <image:caption>Servicios de cuidado para niños y animales en Mallorca</image:caption>
     </image:image>
+  </url>
+  <url>
+    <loc>https://noemicursos87-tech.github.io/cuidadoranoemi/privacidad.html</loc>
+    <lastmod>2026-02-23</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
   </url>
 
 </urlset>

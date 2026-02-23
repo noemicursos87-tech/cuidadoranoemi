@@ -104,4 +104,39 @@ document.addEventListener('DOMContentLoaded', function() {
             procesandoWhatsApp = false;
         }, 2000);
     };
+
+    // 6. GESTIÓN DE COOKIES - GDPR Compliance
+    const cookieBanner = document.getElementById('cookie-banner');
+    const cookieAccept = document.getElementById('cookie-accept');
+    const cookieDecline = document.getElementById('cookie-decline');
+    
+    // Verificar si el usuario ya ha elegido
+    const cookieConsent = localStorage.getItem('cookieConsent');
+    
+    if (!cookieConsent && cookieBanner) {
+        // Mostrar banner si no hay consentimiento previo
+        cookieBanner.style.display = 'flex';
+    }
+    
+    // Aceptar cookies
+    if (cookieAccept) {
+        cookieAccept.addEventListener('click', function() {
+            localStorage.setItem('cookieConsent', 'accepted');
+            cookieBanner.classList.add('hidden');
+            setTimeout(() => {
+                cookieBanner.style.display = 'none';
+            }, 300);
+        });
+    }
+    
+    // Rechazar cookies
+    if (cookieDecline) {
+        cookieDecline.addEventListener('click', function() {
+            localStorage.setItem('cookieConsent', 'declined');
+            cookieBanner.classList.add('hidden');
+            setTimeout(() => {
+                cookieBanner.style.display = 'none';
+            }, 300);
+        });
+    }
 });
